@@ -1,0 +1,162 @@
+<!-- CABEÇALHO -->
+<mat-toolbar color="primary">Trabalhando com FormArray</mat-toolbar>
+
+<form [formGroup]="form" fxLayout="row wrap" fxLayout.lt-md="column">
+  <!-- Dados do doador -->
+  <div class="static" fxFlex="25" ngxSplitArea>
+    <mat-card class="info-card mat-elevation-z8 formulario" flex="80">
+      <mat-card-content fxLayout="column" fxLayoutAlign="stretch" >
+          <div fxFlex="100" fxLayoutAlign="center">
+              <h4>EMPRESA</h4>
+          </div>
+          <div fxFlex="100"  fxLayout="row" fxLayoutAlign="space-between  start">
+            <mat-form-field fxFlex="100" >
+              <input formControlName="nome" matInput type="text" class="form-control" placeholder="Nome" >
+            </mat-form-field> 
+          </div>
+
+          <div fxFlex="100" fxLayoutAlign="start">
+            <h4>Endereço:</h4>
+          </div>
+          <div formGroupName="endereco" fxLayout="column" fxLayoutAlign="stretch">
+            <div fxFlex="100"  fxLayout="row" fxLayoutAlign="space-between start">
+              <mat-form-field fxFlex="100" >
+                <input formControlName="cidade" matInput type="text" class="form-control" placeholder="Cidade" >
+              </mat-form-field> 
+            </div>
+            <div fxFlex="100"  fxLayout="row" fxLayoutAlign="space-between start">
+              <mat-form-field fxFlex="100" >
+                <input formControlName="bairro" matInput type="text" class="form-control" placeholder="Bairro" >
+              </mat-form-field> 
+            </div>
+            <div fxFlex="100"  fxLayout="row" fxLayoutAlign="space-between start">
+              <mat-form-field fxFlex="100" >
+                <input formControlName="logradouro" matInput type="text" class="form-control" placeholder="Logradouro" >
+              </mat-form-field> 
+            </div>
+            <div fxFlex="100"  fxLayout="row" fxLayoutAlign="space-between start">
+              <mat-form-field fxFlex="100" >
+                <input formControlName="numero" matInput type="text" class="form-control" placeholder="N°" >
+              </mat-form-field> 
+            </div>
+          </div>
+
+          <div fxFlex="100" fxLayoutAlign="start">
+            <h4>Contato: </h4>
+          </div> 
+          <div fxFlex="100"  fxLayout="row wrap" fxLayoutAlign="space-between start" fxLayoutGap="20px">
+            <mat-form-field fxFlex="100">
+              <input formControlName="email" matInput type="text" class="form-control" placeholder="e-mail">
+            </mat-form-field>
+          </div>
+          <div fxFlex="100"  fxLayout="row" fxLayoutAlign="begin">
+            <span>Telefones</span>
+            <button mat-button type="button" color="primary" (click)="addContatos()">
+              <mat-icon>add</mat-icon>
+            </button>
+          </div>
+          <div formArrayName="contatos" fxFlex="100"  fxLayout="column">
+            <ng-container *ngFor="let contatos of contatos.controls; let i=index" >
+              <div [formGroupName]="i">
+                <mat-form-field fxFlex="100">
+                  <input formControlName="tel" matInput type="text" class="form-control" placeholder="Número de contato {{ i+1 }}" >
+                </mat-form-field>
+                <button mat-button type="button" color="primary" (click)="removeDoFormArray(form.get('contatos'), i)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </ng-container>
+          </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- colaboradores cadastrados -->
+  <div fxFlex>
+    <div fxLayout="row" fxLayoutAlign="center center">
+      <mat-card class="info-card mat-elevation-z8 formulario card" flex="80">
+        <mat-card-content fxLayout="column" fxLayoutAlign="stretch">
+          <div fxLayout="column" fxLayoutAlign="stretch">
+            <div fxFlex="100"  fxLayoutAlign="begin">
+              <h4>COLABORADORES</h4>
+              <button mat-button type="button" color="primary" (click)="addColaborador()">
+                <mat-icon>add</mat-icon>
+              </button>
+              <button mat-button type="button" color="primary" (click)="onSumit()">
+                <mat-icon>done_outline</mat-icon>
+              </button>
+            </div>
+
+            <div formArrayName="colaboradores" fxLayout="column" fxLayoutAlign="stretch">
+              <ng-container *ngFor="let colaborador of colaboradores.controls; let i=index" >
+                <div [formGroupName]="i" fxFlex="100"  fxLayout="row" fxLayoutAlign="space-between start">
+                  <mat-accordion fxFlex="100">
+                    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" fxFlex="100">
+                      <mat-expansion-panel-header>
+                        <mat-panel-title>
+                          <mat-icon>info</mat-icon>
+                        </mat-panel-title>
+                        <mat-panel-description>
+                          <p><i>{{ colaborador.get('nomeColaborador').value }}</i></p>
+                        </mat-panel-description>
+                        <button mat-button type="button" color="primary" (click)="removeDoFormArray(form.get('colaboradores'), i)">
+                          <mat-icon>delete</mat-icon>
+                        </button>
+                      </mat-expansion-panel-header>
+                      <div fxLayout="column" fxLayoutAlign="stretch">
+                        <div fxFlex="100"  fxLayout="row" fxLayoutAlign="space-between start">
+                          <mat-form-field fxFlex="100">
+                            <input formControlName="nomeColaborador" matInput type="text" class="form-control" placeholder="Nome do colaborador">
+                          </mat-form-field>
+                        </div>
+                        <div fxFlex="100"  fxLayout="row" fxLayoutAlign="space-between start">
+                          <mat-form-field fxFlex="100">
+                            <input formControlName="departamento" matInput type="text" class="form-control" placeholder="Departamento">
+                          </mat-form-field>
+                        </div>
+                        <div fxFlex="100"  fxLayout="row wrap" fxLayoutAlign="space-between start">
+                          <div fxFlex="100" fxLayout="column" fxLayoutAlign="stretch">
+                            <div fxFlex="100"  fxLayout="row" fxLayoutAlign="begin">
+                              <span>Telefones</span>
+                              <button mat-button type="button" color="primary" (click)="addContatosColaboradores(colaborador.get('contatosColaboradores'))">
+                                <mat-icon>add</mat-icon>
+                              </button>
+                            </div>
+                            <div fxFlex="100"  fxLayout="row" fxLayoutAlign="space-between start">
+                              <div formArrayName="contatosColaboradores" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between start"  fxLayout.lt-lg="column">
+                                <ng-container *ngFor="let contatoColaborador of getContatoColaborador(colaborador); let j=index">
+                                  <div [formGroupName]="j" fxFlex="45">
+                                    <mat-form-field fxFlex="100">
+                                      <input formControlName="tel" matInput type="text" class="form-control" placeholder="Número de contato {{ j+1 }}" >
+                                    </mat-form-field>
+                                    <button mat-button type="button" color="warn" (click)="removeDoFormArray(colaborador.get('contatosColaboradores'), j)">
+                                      <mat-icon>delete</mat-icon>
+                                    </button>
+                                  </div>
+                                </ng-container>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </mat-expansion-panel>
+                  </mat-accordion>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="center center" class="marginTop">
+      <mat-card class="info-card mat-elevation-z8 formulario card" flex="80">
+        <mat-card-content fxLayout="column" fxLayoutAlign="stretch">
+            <pre>
+              {{ form.value | json }}
+            </pre>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</form>
