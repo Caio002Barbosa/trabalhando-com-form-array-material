@@ -4,7 +4,7 @@
 <form [formGroup]="form" fxLayout="row wrap" fxLayout.lt-md="column">
   <!-- Dados do doador -->
   <div class="static" fxFlex="25" ngxSplitArea>
-    <mat-card class="info-card mat-elevation-z8 formulario" flex="80">
+    <mat-card class="info-card mat-elevation-z8 marginTop" flex="80">
       <mat-card-content fxLayout="column" fxLayoutAlign="stretch" >
           <div fxFlex="100" fxLayoutAlign="center">
               <h4>EMPRESA</h4>
@@ -19,6 +19,11 @@
             <h4>Endereço:</h4>
           </div>
           <div formGroupName="endereco" fxLayout="column" fxLayoutAlign="stretch">
+            <div fxFlex="100"  fxLayout="row" fxLayoutAlign="space-between start">
+              <mat-form-field fxFlex="100" >
+                <input formControlName="estado" matInput type="text" class="form-control" placeholder="Estado" >
+              </mat-form-field> 
+            </div>
             <div fxFlex="100"  fxLayout="row" fxLayoutAlign="space-between start">
               <mat-form-field fxFlex="100" >
                 <input formControlName="cidade" matInput type="text" class="form-control" placeholder="Cidade" >
@@ -74,7 +79,7 @@
   <!-- colaboradores cadastrados -->
   <div fxFlex>
     <div fxLayout="row" fxLayoutAlign="center center">
-      <mat-card class="info-card mat-elevation-z8 formulario card" flex="80">
+      <mat-card class="info-card mat-elevation-z8 marginTop card" fxFlex>
         <mat-card-content fxLayout="column" fxLayoutAlign="stretch">
           <div fxLayout="column" fxLayoutAlign="stretch">
             <div fxFlex="100"  fxLayoutAlign="begin">
@@ -150,7 +155,7 @@
     </div>
 
     <div fxLayout="row" fxLayoutAlign="center center" class="marginTop">
-      <mat-card class="info-card mat-elevation-z8 formulario card" flex="80">
+      <mat-card class="info-card mat-elevation-z8 formulario card" fxFlex>
         <mat-card-content fxLayout="column" fxLayoutAlign="stretch">
             <pre>
               {{ form.value | json }}
